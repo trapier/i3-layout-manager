@@ -113,7 +113,7 @@ if [ "$ACTION" == "LOAD LAYOUT" ] && [ ! -f "$LAYOUT_FILE" ]; then
 fi
 
 # get current workspace ID
-WORKSPACE_ID=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num' | cut -d"\"" -f2)
+WORKSPACE_ID=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).num')
 
 # #{ LOAD
 
@@ -219,7 +219,7 @@ MATCH ANY" | rofi -i -dmenu -p "How to identify windows? (xprop style)")
 
   ALL_WS_FILE=$LAYOUT_PATH/all-layouts.json
 
-  CURRENT_MONITOR=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).output' | cut -d"\"" -f2)
+  CURRENT_MONITOR=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).output')
 
   # get the i3-tree for all workspaces for the current monitor
   i3-save-tree --output "$CURRENT_MONITOR" > "$ALL_WS_FILE" 2>&1
